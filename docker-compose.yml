@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # 1. Database Service: MongoDB
+  mongodb:
+    image: mongo:6.0-jammy
+    container_name: studyhub-mongodb
+    restart: always
+    ports:
+      - "27017:27017" # Cho phép kết nối trực tiếp từ MongoDB Compass trên máy host
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - studyhub-network
+
+  # 2. Backend Service: NestJS Server
+  server:
+    build:
+      context: ./studyHub-server
+      dockerfile: Dockerfile
+    container_name: studyhub-server
+    restart: always
+    ports:
+      - "8888:8888" # Map cổng 8888 ra máy host
+    depends_on:
+      - mongodb
+    env_file:
+      - ./studyHub-server/.env # Đọc cấu hình từ file .env cục bộ của server
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=8888
+    volumes:
+      # LƯU Ý: Phải đảm bảo file 'firebase-adminsdk.json' tồn tại ở thư mục 'studyHub-server' trên máy host trước khi build/run.
+      - ./studyHub-server/firebase-adminsdk.json:/app/firebase-adminsdk.json:ro
+      # Volume để lưu trữ tệp tin upload cục bộ nếu có sử dụng Multer local upload
+      - ./studyHub-server/uploads:/app/uploads
+    networks:
+      - studyhub-network
+
+  # 3. (Tùy chọn) Frontend Service: React Client (Bỏ comment bên dưới nếu bạn muốn Dockerize cả Frontend)
+  # client:
+  #   image: node:22-alpine
+  #   container_name: studyhub-client
+  #   working_dir: /app
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./studyHub-client:/app
+  #     - /app/node_modules # Giữ nguyên node_modules bên trong container
+  #   command: npm run dev -- --host
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - studyhub-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  studyhub-network:
+    driver: bridge

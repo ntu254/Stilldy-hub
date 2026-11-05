@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+  ==========================================
+  StudyHub Design System — Custom Theme
+  ==========================================
+  Background canvas: #F8FAFC (light slate)
+  Card containers:   #FFFFFF (white)
+  Typography:        #0F172A (dark elegant)
+  Border:            #F1F5F9 (slate-100)
+  Radius:            1rem (16px / rounded-2xl)
+*/
+
+:root {
+  --background: oklch(0.985 0.002 247);   /* #F8FAFC */
+  --foreground: oklch(0.145 0.025 264);   /* #0F172A */
+
+  --card: oklch(1 0 0);                   /* #FFFFFF */
+  --card-foreground: oklch(0.145 0.025 264);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.025 264);
+
+  --primary: oklch(0.145 0.025 264);      /* #0F172A */
+  --primary-foreground: oklch(0.985 0.002 247);
+
+  --secondary: oklch(0.965 0.005 247);    /* #F1F5F9 */
+  --secondary-foreground: oklch(0.25 0.02 264);
+
+  --muted: oklch(0.965 0.005 247);
+  --muted-foreground: oklch(0.56 0.015 264);
+
+  --accent: oklch(0.965 0.005 247);
+  --accent-foreground: oklch(0.25 0.02 264);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+
+  --border: oklch(0.965 0.005 247);       /* #F1F5F9 — slate-100 */
+  --input: oklch(0.905 0.008 247);        /* #E2E8F0 — slate-200 */
+  --ring: oklch(0.145 0.025 264);
+
+  --radius: 1rem;                         /* 16px — rounded-2xl default */
+
+  --sidebar: oklch(1 0 0);                 /* #FFFFFF - Premium white container */
+  --sidebar-foreground: oklch(0.145 0.025 264);
+  --sidebar-primary: oklch(0.145 0.025 264);
+  --sidebar-primary-foreground: oklch(0.985 0.002 247);
+  --sidebar-accent: oklch(0.965 0.005 247);
+  --sidebar-accent-foreground: oklch(0.25 0.02 264);
+  --sidebar-border: oklch(0.922 0.007 247);
+  --sidebar-ring: oklch(0.145 0.025 264);
+}
+
+/* ===== Global Reset & Typography ===== */
+
+*,
+*::before,
+*::after {
+  border-color: var(--border);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
